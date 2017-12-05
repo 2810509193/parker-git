@@ -3,6 +3,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>获取验证码</title>
+		
+		<meta property="og:url"                content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html" />
+		<meta property="og:type"               content="article" />
+		<meta property="og:title"              content="When Great Minds Don’t Think Alike" />
+		<meta property="og:description"        content="How much does culture influence creative thinking?" />
+		<meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+		
 		<script src="/public/jquery.min.js"></script>
 	
 	</head>
@@ -22,10 +29,54 @@
 		}
 	</style>
 	<body>
+		<!--
+		<a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+		<div id="fb-root" style="height: 500px;width: 500px; background: #f90;"></div>
+    	<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '1244360229041459',
+		      cookie     : true,
+		      xfbml      : true,
+		      version    : 'v2.11'
+		    });
+		      
+		    FB.AppEvents.logPageView();   
+		      
+		  };
 		
+		  	(function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "https://connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+	    
+	    	var shareToFbBtn = document.getElementById('fb-root');
+			shareToFbBtn.onclick = function(){
+			  FB.ui({
+			    method: 'share',
+			    href: "http://linn123.com/" //这里换成你的网址
+			  }, function(response){
+			    //分享回调
+			    console.log(response);
+			  })
+			}
+    
+    	</script>
+      	<div
+		  class="fb-like"
+		  data-share="true"
+		  data-width="450"
+		  data-show-faces="true">
+		</div>
+		-->
 		<div id="btn">
 			点击获取
 		</div>
+		<input type="text" id="code" placeholder="请输入验证码">
+		<a href="javascript:checkCode();">提交</a>
 	</body>
 	<script>
 		$("#btn").click(function(){
@@ -44,6 +95,24 @@
 			    }
 			});
 		});
+		
+		function checkCode(){
+			var code = document.getElementById("code").value;
+			$.ajax({
+				url: '/reg',
+			    type: 'post',
+			    dataType: 'json',
+			    data: {
+			        'code':code
+			    },
+			    success: function(res){
+			        console.log(res);
+			    },
+			    error: function(e){
+			        console.log(e);
+			    }
+			});
+		}
 		
 	</script>
 </html>
