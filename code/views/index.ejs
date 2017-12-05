@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>获取验证码</title>
+		<script src="/public/jquery.min.js"></script>
+	
+	</head>
+	<style>
+		#btn{
+			height: 20px;
+			width: 60px;
+			line-height: 20px;
+			border: 1px solid #dddddd;
+			font-size: 12px;
+			cursor: pointer;
+			text-align: center;
+		}
+		#btn img{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<body>
+		
+		<div id="btn">
+			点击获取
+		</div>
+	</body>
+	<script>
+		$("#btn").click(function(){
+			$.ajax({
+				url: '/getCode',
+			    type: 'post',
+			    dataType: 'json',
+			    data: {
+			          
+			    },
+			    success: function(res){
+			        $("#btn").html('<img src="'+res.base64+'">');
+			    },
+			    error: function(e){
+			        console.log(e);
+			    }
+			});
+		});
+		
+	</script>
+</html>
